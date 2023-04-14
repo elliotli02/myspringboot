@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configuration>
+<Configuration status="off">
+	<!-- AppenterやLoggerで使用するプロパティを定義する -->
+	<Properties>
+		<Property name="baseDir">C:/pleiades202303/xxland/logs</Property>
+		<Property name="loglayout">%d{yyyy-MM-dd},%d{HH:mm:ss},%d{SSS},%-5level,%X{userId},%X{userName},%X{programId},%X{programName},%X{machineName},%X{pid},%threadId,%X{packageName},%X{className},%X{methodName},%msg%n%ex</Property>
+		<Property name="daily">%d{yyyyMMdd}</Property>
+	</Properties>
+
+	<!-- ログの出力先と出力フォーマットを設定する -->
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${loglayout}" charset="utf-8" />
+		</Console>
+		<!-- すべてのログ＆スタックトレースを出力 -->
+		<RollingFile name="appLog" fileName="${baseDir}/APP_XXLAND_API.log" filePattern="${baseDir}/APP_XXLAND_API_${daily}.log" append="true" >
+			<PatternLayout pattern="${loglayout}" charset="utf-8" />
+			<Policies>
+				<TimeBasedTriggeringPolicy/>
+				<SizeBasedTriggeringPolicy size="100MB"/>
+			</Policies>
+			<!-- 　ローテーションのファイル数 -->
+			<DefaultRolloverStrategy max="999"/>
+		</RollingFile>
+
+		<!-- ERRORログ＆スタックトレースを出力 -->
+		<RollingFile name="errLog" fileName="${baseDir}/APP_XXLAND_API_ERROR.log" filePattern="${baseDir}/APP_XXLAND_API_ERROR_${daily}.log" append="true">
+			<PatternLayout pattern="${loglayout}" charset="utf-8" />
+			<Policies>
+				<TimeBasedTriggeringPolicy/>
+			</Policies>
+			<!-- エラーログ以上のみ -->
+		    <Filters>
+				<ThresholdFilter level="error"  onMatch="ACCEPT" onMismatch="DENY"/>
+		   </Filters>
+		</RollingFile>
+
+		<!-- WARNログ＆スタックトレースを出力 -->
+		<RollingFile name="warnLog" fileName="${baseDir}/APP_CISF_XXLAND_WARN.log" filePattern="${baseDir}/APP_XXLAND_API_WARN_${daily}.log" append="true">
+			<PatternLayout pattern="${loglayout}" charset="utf-8" />
+			<Policies>
+				<TimeBasedTriggeringPolicy/>
+			</Policies>
+			<!-- ワーニングログのみ -->
+		    <Filters>
+				<ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+				<ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+				<ThresholdFilter level="warn"  onMatch="ACCEPT" onMismatch="DENY"/>
+		   </Filters>
+		</RollingFile>
+	</Appenders>
+	<!-- パッケージごとにAppenderとログレベルを組み合わせる -->
+	<Loggers>
+		<Root level="debug">
+			<AppenderRef ref="console"/>
+			<AppenderRef ref="appLog"/>
+			<AppenderRef ref="errLog"/>
+			<AppenderRef ref="warnLog"/>
+		</Root>
+	</Loggers>
+</Configuration>
