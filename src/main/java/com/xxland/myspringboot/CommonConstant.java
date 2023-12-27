@@ -13,16 +13,16 @@ public class CommonConstant {
 	// 検索結果上限値
 	public static final int SRC_RESULT_LIMIT = 1000000;
 
-	// 処理権限区分値1:
+	// 処理権限区分値1
 	public static final String AUTH_KBN_1 ="1";
 
-	// 処理権限区分値2:
+	// 処理権限区分値2
 	public static final String AUTH_KBN_2 ="2";
 
-	// 処理権限区分値3:
+	// 処理権限区分値3
 	public static final String AUTH_KBN_3 ="3";
 
-	// 処理権限区分値4:
+	// 処理権限区分値4
 	public static final String AUTH_KBN_4 ="4";
 
 }
