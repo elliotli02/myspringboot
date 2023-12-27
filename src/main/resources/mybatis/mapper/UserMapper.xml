@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.xxland.myspringboot.domain.mapper.UserMapper">
+	<resultMap id="BaseResultMap"
+		type="com.xxland.myspringboot.domain.entity.User">
+		<id column="user_email" jdbcType="VARCHAR" property="userEmail" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_password" jdbcType="VARCHAR"
+			property="userPassword" />
+		<result column="user_first_name" jdbcType="VARCHAR"
+			property="userFirstName" />
+		<result column="user_last_name" jdbcType="VARCHAR"
+			property="userLastName" />
+		<result column="user_birthday" jdbcType="VARCHAR"
+			property="userBirthday" />
+		<result column="user_gender" jdbcType="VARCHAR"
+			property="userGender" />
+		<result column="user_international" jdbcType="VARCHAR"
+			property="userInternational" />
+		<result column="user_phone" jdbcType="VARCHAR"
+			property="userPhone" />
+		<result column="user_zip_code" jdbcType="VARCHAR"
+			property="userZipCode" />
+		<result column="user_address" jdbcType="VARCHAR"
+			property="userAddress" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_email, user_id, user_password, user_first_name, user_last_name,
+		user_birthday,
+		user_gender, user_international, user_phone, user_zip_code, user_address
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where user_email = #{userEmail,jdbcType=VARCHAR}
+	</select>
+	<select id="selectUserBySignIn"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where user_email = #{userEmail,jdbcType=VARCHAR} and
+		user_password =
+		#{userPassword,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from user
+		where user_email = #{userEmail,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.xxland.myspringboot.domain.entity.User">
+		insert into user (user_email, user_id, user_password,
+		user_first_name, user_last_name, user_birthday,
+		user_gender, user_international, user_phone,
+		user_zip_code, user_address)
+		values (#{userEmail,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
+		#{userPassword,jdbcType=VARCHAR},
+		#{userFirstName,jdbcType=VARCHAR}, #{userLastName,jdbcType=VARCHAR}, #{userBirthday,jdbcType=VARCHAR},
+		#{userGender,jdbcType=VARCHAR}, #{userInternational,jdbcType=VARCHAR},
+		#{userPhone,jdbcType=VARCHAR},
+		#{userZipCode,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.xxland.myspringboot.domain.entity.User">
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userEmail != null">
+				user_email,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userPassword != null">
+				user_password,
+			</if>
+			<if test="userFirstName != null">
+				user_first_name,
+			</if>
+			<if test="userLastName != null">
+				user_last_name,
+			</if>
+			<if test="userBirthday != null">
+				user_birthday,
+			</if>
+			<if test="userGender != null">
+				user_gender,
+			</if>
+			<if test="userInternational != null">
+				user_international,
+			</if>
+			<if test="userPhone != null">
+				user_phone,
+			</if>
+			<if test="userZipCode != null">
+				user_zip_code,
+			</if>
+			<if test="userAddress != null">
+				user_address,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userEmail != null">
+				#{userEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userFirstName != null">
+				#{userFirstName,jdbcType=VARCHAR},
+			</if>
+			<if test="userLastName != null">
+				#{userLastName,jdbcType=VARCHAR},
+			</if>
+			<if test="userBirthday != null">
+				#{userBirthday,jdbcType=VARCHAR},
+			</if>
+			<if test="userGender != null">
+				#{userGender,jdbcType=VARCHAR},
+			</if>
+			<if test="userInternational != null">
+				#{userInternational,jdbcType=VARCHAR},
+			</if>
+			<if test="userPhone != null">
+				#{userPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userZipCode != null">
+				#{userZipCode,jdbcType=VARCHAR},
+			</if>
+			<if test="userAddress != null">
+				#{userAddress,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.xxland.myspringboot.domain.entity.User">
+		update user
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				user_password = #{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userFirstName != null">
+				user_first_name = #{userFirstName,jdbcType=VARCHAR},
+			</if>
+			<if test="userLastName != null">
+				user_last_name = #{userLastName,jdbcType=VARCHAR},
+			</if>
+			<if test="userBirthday != null">
+				user_birthday = #{userBirthday,jdbcType=VARCHAR},
+			</if>
+			<if test="userGender != null">
+				user_gender = #{userGender,jdbcType=VARCHAR},
+			</if>
+			<if test="userInternational != null">
+				user_international = #{userInternational,jdbcType=VARCHAR},
+			</if>
+			<if test="userPhone != null">
+				user_phone = #{userPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userZipCode != null">
+				user_zip_code = #{userZipCode,jdbcType=VARCHAR},
+			</if>
+			<if test="userAddress != null">
+				user_address = #{userAddress,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_email = #{userEmail,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.xxland.myspringboot.domain.entity.User">
+		update user
+		set user_id = #{userId,jdbcType=VARCHAR},
+		user_password = #{userPassword,jdbcType=VARCHAR},
+		user_first_name = #{userFirstName,jdbcType=VARCHAR},
+		user_last_name = #{userLastName,jdbcType=VARCHAR},
+		user_birthday = #{userBirthday,jdbcType=VARCHAR},
+		user_gender = #{userGender,jdbcType=VARCHAR},
+		user_international = #{userInternational,jdbcType=VARCHAR},
+		user_phone = #{userPhone,jdbcType=VARCHAR},
+		user_zip_code = #{userZipCode,jdbcType=VARCHAR},
+		user_address = #{userAddress,jdbcType=VARCHAR}
+		where user_email = #{userEmail,jdbcType=VARCHAR}
+	</update>
+</mapper>
